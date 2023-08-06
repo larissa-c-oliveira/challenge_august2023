@@ -1,5 +1,5 @@
 /*
-DescriÁ„o: CriaÁ„o das tabelas para an·lise de dados
+Descri√ß√£o: Cria√ß√£o das tabelas para an√°lise de dados
 Data: 05/08/2023
 Autora: Larissa Oliveira
 */
@@ -51,7 +51,7 @@ CREATE TABLE Category (
 )
 
 
---ConfiguraÁ„o das chaves estrangeiras
+--Configura√ß√£o das chaves estrangeiras
 ALTER TABLE [Order] ADD FOREIGN KEY (idCliente) REFERENCES Customer (id)
 GO
 
@@ -64,7 +64,7 @@ GO
 ALTER TABLE Item ADD FOREIGN KEY (idCategoria) REFERENCES Category (id)
 GO
 
---CriaÁ„o dos Ìndices para otimizaÁ„o de consultas
+--Cria√ß√£o dos √≠ndices para otimiza√ß√£o de consultas
 CREATE INDEX IX_Order_idCliente ON [Order] (idCliente)
 GO
 CREATE INDEX IX_Order_idVendedor ON [Order] (idVendedor)
@@ -73,7 +73,7 @@ CREATE INDEX IX_Order_idItem ON [Order] (idItem)
 GO
 
 
---Inserindo dados fictÌcios para an·lise
+--Inserindo dados fict√≠cios para an√°lise
 
 -- Inserir dados na tabela Category
 INSERT INTO  Category (descricao)
@@ -88,7 +88,7 @@ SELECT 'Tablet'	AS descricao
 INSERT INTO Item (idCategoria, descricao, [status], valor)
 SELECT TOP 50
     (ABS(CHECKSUM(NEWID())) % 3) + 1											AS idCategoria,
-    'Item ' + CAST(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS VARCHAR(10))	AS descricao,
+    'Item ' + CAST(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS VARCHAR(10))						AS descricao,
     CAST(ABS(CHECKSUM(NEWID())) % 2 AS BIT)										AS [status],
     (ABS(CHECKSUM(NEWID())) % 1000) + 10										AS valor
 FROM sys.columns c1
@@ -98,7 +98,7 @@ CROSS JOIN sys.columns c2
 -- Inserir dados na tabela Customer
 INSERT INTO Customer (email, nome, sobrenome, sexo, endereco, dataNascimento, telefone)
 SELECT TOP 50
-    'cliente' + CAST(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS VARCHAR(10)) + '@teste.com.br'	AS email,
+    'cliente' + CAST(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS VARCHAR(10)) + '@teste.com.br'			AS email,
     'Nome' + CAST(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS VARCHAR(10))						AS nome,
     'Sobrenome' + CAST(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS VARCHAR(10))					AS apelido,
     
@@ -107,8 +107,8 @@ SELECT TOP 50
 	END																								AS sexo,
 
     'Endereco' + CAST(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS VARCHAR(10))					AS endereco,
-    DATEADD(DAY, -ABS(CHECKSUM(NEWID())) % 365*30, '1990-01-01')									AS dataNascimento,
-    ABS(CHECKSUM(NEWID())) % 10000000000															AS telefone
+    DATEADD(DAY, -ABS(CHECKSUM(NEWID())) % 365*30, '1990-01-01')							AS dataNascimento,
+    ABS(CHECKSUM(NEWID())) % 10000000000										AS telefone
 FROM sys.columns c1
 CROSS JOIN sys.columns c2
 
@@ -119,10 +119,10 @@ SELECT TOP 50
     (ABS(CHECKSUM(NEWID())) % 10) + 1							AS idVendedor,
     (ABS(CHECKSUM(NEWID())) % 50) + 1							AS idItem,
     CAST(ABS(CHECKSUM(NEWID())) % 2 AS BIT)						AS [status],
-    DATEADD(DAY, ABS(CHECKSUM(NEWID())) % 365, '2020-01-01')	AS dataStatus,
-	DATEADD(DAY, ABS(CHECKSUM(NEWID())) % 365, '2020-01-02')	AS dataPedido,
+    DATEADD(DAY, ABS(CHECKSUM(NEWID())) % 365, '2020-01-01')				AS dataStatus,
+	DATEADD(DAY, ABS(CHECKSUM(NEWID())) % 365, '2020-01-02')			AS dataPedido,
     (ABS(CHECKSUM(NEWID())) % 10) + 1							AS quantidade,
-    CAST((ABS(CHECKSUM(NEWID())) % 50)	AS DECIMAL(10, 2))		AS desconto,
+    CAST((ABS(CHECKSUM(NEWID())) % 50)	AS DECIMAL(10, 2))				AS desconto,
     (ABS(CHECKSUM(NEWID())) % 200) + 10							AS valorUnitario
 FROM sys.columns c1
 CROSS JOIN sys.columns c2
@@ -132,7 +132,7 @@ UPDATE [Order]
 SET valorTotal = ( quantidade * valorUnitario ) - desconto
 
 
---VisualizaÁ„o dos dados inseridos:
+--Visualiza√ß√£o dos dados inseridos:
 SELECT * FROM Customer
 GO
 SELECT * FROM  [Order]
