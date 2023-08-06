@@ -1,10 +1,10 @@
 /*
-Descrição: Análise de dados
+DescriÃ§Ã£o: AnÃ¡lise de dados
 Data: 05/08/2023
 Autora: Larissa Oliveira
 */
 
---1.Listar os usuários que fazem aniversário no dia de hoje e cuja quantidade de vendas realizadas em janeiro/2020 sejam superior a R$ 1.500
+--1.Listar os usuÃ¡rios que fazem aniversÃ¡rio no dia de hoje e cuja quantidade de vendas realizadas em janeiro/2020 > R$ 1.500
 WITH tbl AS 
 (
 	SELECT 
@@ -23,8 +23,8 @@ WHERE DAY(c.dataNascimento)		= DAY(GETDATE())
 AND   MONTH(c.dataNascimento)	= MONTH(GETDATE())
 AND   t.valor > 1500
 
---2.Para cada mês de 2020, listar os 5 top usuários que mais venderam na categoria celulares. 
---Apresentar mês, ano de análise, nome e sobrenome do vendedor, quantidade de vendas realizadas, total de produtos vendidos e o valor.
+--2.Para cada mÃªs de 2020, listar os top 5 usuÃ¡rios que mais venderam na categoria celulares. 
+--Apresentar mÃªs, ano de anÃ¡lise, nome e sobrenome do vendedor, quantidade de vendas realizadas, total de produtos vendidos e o valor.
 WITH tbl AS 
 (
 	SELECT 
@@ -33,7 +33,7 @@ WITH tbl AS
 			YEAR(o.dataPedido)		AS anoPedido,
 			SUM(o.valorTotal)		AS valorTotal,
 			SUM(o.quantidade)		AS quantidadeProduto,
-			COUNT(o.id)				AS quantidadeVenda,
+			COUNT(o.id)			AS quantidadeVenda,
 			ROW_NUMBER() OVER(PARTITION BY MONTH(o.dataPedido) ORDER BY SUM(o.valorTotal) DESC)
 									AS linha
 	FROM			[Order]		o WITH(NOLOCK)
@@ -55,7 +55,7 @@ FROM		tbl t
 INNER JOIN	Customer v on t.idVendedor = v.id
 WHERE t.linha < 6
 
---3.Criar e popular uma nova tabela com o preço e status dos itens no fim do dia. Essa ação deve ser reprocessável
+--3.Criar e popular uma nova tabela com o preÃ§o e status dos itens no fim do dia. Essa aÃ§Ã£o deve ser reprocessÃ¡vel
 CREATE PROCEDURE PRC_ITEM_STATUS_DIA
 AS
 	BEGIN
@@ -71,7 +71,7 @@ AS
 	
 			END;
 
-			--Remove alguma exclusão anterior do mesmo dia
+			--Remove alguma exclusÃ£o anterior do mesmo dia
 			DELETE FROM StatusItem WHERE dataStatus = CAST( GETDATE() AS DATE ) 
 
 			--Insere registros
