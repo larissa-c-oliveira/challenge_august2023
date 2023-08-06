@@ -8,3 +8,6 @@ e [The World Bank](https://data.worldbank.org/country/argentina?intcid=ecr_hp_Be
 ## Créditos
 [Bandeira Argentina](https://br.freepik.com/fotos-gratis/bandeira-da-argentina_1178777.htm)
 
+
+## Insights
+[Apresentação Larissa Oliveira.pdf](https://github.com/larissa-c-oliveira/challenge_august2023/files/12268752/Apresentacao.Larissa.Oliveira.pdf)
